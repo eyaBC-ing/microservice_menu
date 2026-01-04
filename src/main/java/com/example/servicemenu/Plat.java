@@ -1,6 +1,6 @@
 package com.example.servicemenu;
 
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -21,28 +21,34 @@ public class Plat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPlat;
 
+    @JsonProperty("nom")
     @NotBlank(message = "Le nom du plat est obligatoire")
     @Size(min = 2, max = 250, message = "Le nom doit contenir entre 2 et 250 caractères")
     @Column(nullable = false, length = 250)
     private String nom;
 
+    @JsonProperty("description")
     @Size(max = 500, message = "La description ne peut pas dépasser 500 caractères")
     @Column(length = 500)
     private String description;
 
+    @JsonProperty("prix")
     @NotNull(message = "Le prix est obligatoire")
     @DecimalMin(value = "0.0", inclusive = false, message = "Le prix doit être supérieur à 0")
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal prix;
 
+    @JsonProperty("categorie")
     @NotNull(message = "La catégorie est obligatoire")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Categorie categorie;
 
+    @JsonProperty("image")
     @Column(name = "image", length = 255 )
     private String image;
 
+    @JsonProperty("disponible")
     @Column(nullable = false)
     private Boolean disponible = true;
 
